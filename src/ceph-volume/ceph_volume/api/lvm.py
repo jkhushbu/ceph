@@ -193,6 +193,9 @@ def create_pv(device):
 def remove_lv(path):
     """
     Removes a logical volume given it's absolute path.
+
+    Will return True if the lv is successfully removed or
+    raises a RuntimeError if the removal fails.
     """
     stdout, stderr, returncode = process.call(
         [
@@ -207,6 +210,7 @@ def remove_lv(path):
     )
     if returncode != 0:
         raise RuntimeError("Unable to remove %s".format(path))
+    return True
 
 
 def create_lv(name, group, size=None, **tags):
